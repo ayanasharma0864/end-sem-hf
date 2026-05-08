@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/iss-fallback",
+      "destination": "http://api.open-notify.org/iss-now.json"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
