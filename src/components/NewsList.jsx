@@ -19,12 +19,6 @@ export function NewsList({ news, loading, search, setSearch, refetch }) {
           <option>Sort by Date</option>
           <option>Sort by Source</option>
         </select>
-        <button 
-          onClick={refetch}
-          className="px-5 py-2 bg-[#fffbeb] border border-[#fef3c7] rounded-full text-sm font-bold hover:bg-[#fef3c7] transition-colors"
-        >
-          Refresh
-        </button>
       </div>
 
       <div className="flex-1 overflow-y-auto space-y-2 custom-scrollbar pr-2" style={{ maxHeight: '380px' }}>
