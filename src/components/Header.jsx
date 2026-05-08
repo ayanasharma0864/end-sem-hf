@@ -6,12 +6,12 @@ export function Header() {
 
   return (
     <header className="w-full pb-6">
-      <div className="bg-[#fffbeb] border border-[#fef3c7] rounded-2xl p-8 shadow-sm flex items-center justify-between">
+      <div className="bg-[var(--card-bg)] border border-[var(--border)] rounded-2xl p-8 shadow-sm flex items-center justify-between">
         <div>
           <h2 className="text-[12px] font-black tracking-[0.2em] text-[#3b82f6] uppercase mb-2">
             MISSION CONTROL DASHBOARD
           </h2>
-          <h1 className="text-3xl md:text-5xl font-[900] text-[#1e293b] tracking-tight leading-none">
+          <h1 className="text-3xl md:text-5xl font-[900] text-[var(--text-h)] tracking-tight leading-none">
             Real-Time ISS and News Intelligence
           </h1>
         </div>

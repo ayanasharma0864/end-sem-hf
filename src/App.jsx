@@ -25,9 +25,9 @@ function App() {
           <div className="lg:col-span-8 flex flex-col gap-6">
             
             {/* ISS Live Tracking Card */}
-            <section className="bg-[#fffbeb] rounded-2xl shadow-sm border border-[#fef3c7] p-6">
+            <section className="bg-[var(--card-bg)] rounded-2xl shadow-sm border border-[var(--border)] p-6">
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-black text-[#1e293b]">ISS Live Tracking</h2>
+                <h2 className="text-xl font-black text-[var(--text-h)]">ISS Live Tracking</h2>
                 <div className="flex gap-2">
                   <button 
                     onClick={refetchISS} 
@@ -72,9 +72,9 @@ function App() {
             </section>
 
             {/* Breaking News Card */}
-            <section className="bg-[#fffbeb] rounded-2xl shadow-sm border border-[#fef3c7] p-6">
+            <section className="bg-[var(--card-bg)] rounded-2xl shadow-sm border border-[var(--border)] p-6">
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-black text-[#1e293b]">Breaking News</h2>
+                <h2 className="text-xl font-black text-[var(--text-h)]">Breaking News</h2>
                 <button 
                   onClick={refetchNews}
                   className="px-4 py-1.5 border border-[var(--border)] rounded-full text-xs font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
@@ -96,8 +96,8 @@ function App() {
 
           {/* Right Column: Speed Trend & Chatbot */}
           <div className="lg:col-span-4 flex flex-col gap-6">
-            <section className="bg-[#fffbeb] rounded-2xl shadow-sm border border-[#fef3c7] p-6 flex flex-col min-h-[400px]">
-              <h2 className="text-xl font-black text-[#1e293b] mb-6">ISS Speed Trend</h2>
+            <section className="bg-[var(--card-bg)] rounded-2xl shadow-sm border border-[var(--border)] p-6 flex flex-col min-h-[400px]">
+              <h2 className="text-xl font-black text-[var(--text-h)] mb-6">ISS Speed Trend</h2>
               <div className="flex-1 min-h-[300px]">
                 <SpeedChart data={speedHistory} />
               </div>
