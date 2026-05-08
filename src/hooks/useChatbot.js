@@ -65,7 +65,7 @@ ${newsData?.news?.map((n, i) => `${i+1}. ${n.title} (Source: ${n.source?.name ||
 `;
 
       const response = await hf.chatCompletion({
-        model: 'Qwen/Qwen2.5-Coder-32B-Instruct',
+        model: 'mistralai/Mistral-7B-Instruct-v0.2',
         messages: [
           { role: 'system', content: context },
           ...newMessages.map(m => ({ role: m.role, content: m.content }))
@@ -80,10 +80,29 @@ ${newsData?.news?.map((n, i) => `${i+1}. ${n.title} (Source: ${n.source?.name ||
       setMessages(updatedMessages);
       localStorage.setItem(CHAT_CACHE_KEY, JSON.stringify(updatedMessages));
     } catch (error) {
-      console.error(error);
-      toast.error('Failed to get AI response');
-      const updatedMessages = [...newMessages, { role: 'assistant', content: "Sorry, I'm having trouble connecting to my brain right now. Please try again." }];
+      console.error('AI Error:', error);
+      
+      // SMART FALLBACK: Answer using local data if API fails
+      let fallbackReply = "I'm having a bit of trouble with my high-level brain, but I can still see the dashboard data! ";
+      const query = userMessage.toLowerCase();
+      
+      if (query.includes('iss') || query.includes('location') || query.includes('where')) {
+        fallbackReply += `The ISS is currently at Latitude ${issData?.position?.lat?.toFixed(2)}, Longitude ${issData?.position?.lng?.toFixed(2)} near ${issData?.nearestPlace}.`;
+      } else if (query.includes('speed') || query.includes('fast')) {
+        fallbackReply += `It is traveling at a speed of ${Math.round(issData?.currentSpeed || 27600)} km/h.`;
+      } else if (query.includes('people') || query.includes('astronaut')) {
+        fallbackReply += `There are ${issData?.people?.number || 0} people in space right now.`;
+      } else if (query.includes('news') || query.includes('headline')) {
+        fallbackReply += `The top news is: "${newsData?.news[0]?.title || 'Space Exploration updates'}".`;
+      } else {
+        fallbackReply = "I'm having trouble connecting to my AI brain. Please ensure your VITE_AI_TOKEN is set in Vercel environment variables and redeploy!";
+      }
+
+      const updatedMessages = [...newMessages, { role: 'assistant', content: fallbackReply }];
       setMessages(updatedMessages);
+      if (!import.meta.env.VITE_AI_TOKEN) {
+        toast.error('VITE_AI_TOKEN missing in Environment Variables!');
+      }
     } finally {
       setIsTyping(false);
     }
