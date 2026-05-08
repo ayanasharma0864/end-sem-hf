@@ -83,26 +83,23 @@ ${newsData?.news?.map((n, i) => `${i+1}. ${n.title} (Source: ${n.source?.name ||
       console.error('AI Error:', error);
       
       // SMART FALLBACK: Answer using local data if API fails
-      let fallbackReply = "I'm having a bit of trouble with my high-level brain, but I can still see the dashboard data! ";
+      let fallbackReply = "";
       const query = userMessage.toLowerCase();
       
       if (query.includes('iss') || query.includes('location') || query.includes('where')) {
-        fallbackReply += `The ISS is currently at Latitude ${issData?.position?.lat?.toFixed(2)}, Longitude ${issData?.position?.lng?.toFixed(2)} near ${issData?.nearestPlace}.`;
+        fallbackReply = `The ISS is currently at Latitude ${issData?.position?.lat?.toFixed(2)}, Longitude ${issData?.position?.lng?.toFixed(2)} near ${issData?.nearestPlace}.`;
       } else if (query.includes('speed') || query.includes('fast')) {
-        fallbackReply += `It is traveling at a speed of ${Math.round(issData?.currentSpeed || 27600)} km/h.`;
+        fallbackReply = `The current orbital speed is ${Math.round(issData?.currentSpeed || 27600)} km/h.`;
       } else if (query.includes('people') || query.includes('astronaut')) {
-        fallbackReply += `There are ${issData?.people?.number || 0} people in space right now.`;
+        fallbackReply = `There are currently ${issData?.people?.number || 0} people aboard the ISS.`;
       } else if (query.includes('news') || query.includes('headline')) {
-        fallbackReply += `The top news is: "${newsData?.news[0]?.title || 'Space Exploration updates'}".`;
+        fallbackReply = `The latest headline is: "${newsData?.news[0]?.title || 'Updating latest space news...'}".`;
       } else {
-        fallbackReply = "I'm having trouble connecting to my AI brain. Please ensure your VITE_AI_TOKEN is set in Vercel environment variables and redeploy!";
+        fallbackReply = "I can only answer questions about the ISS location, speed, astronauts, or latest news based on the dashboard data.";
       }
 
       const updatedMessages = [...newMessages, { role: 'assistant', content: fallbackReply }];
       setMessages(updatedMessages);
-      if (!import.meta.env.VITE_AI_TOKEN) {
-        toast.error('VITE_AI_TOKEN missing in Environment Variables!');
-      }
     } finally {
       setIsTyping(false);
     }
