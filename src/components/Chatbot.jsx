@@ -94,7 +94,7 @@ export function Chatbot({ issData, newsData }) {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Ask from dashboard data only"
-          className="flex-1 bg-white border-2 border-[#3b82f6] rounded-xl px-4 py-2.5 outline-none text-sm placeholder:text-gray-400 font-medium"
+          className="flex-1 bg-white border-2 border-[#3b82f6] rounded-xl px-4 py-2.5 outline-none text-sm text-gray-900 placeholder:text-gray-400 font-medium"
           disabled={isTyping}
         />
         <button
